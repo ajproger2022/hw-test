@@ -7,12 +7,6 @@ import (
 
 func Top10(text string) []string {
 	if text != "" {
-		type item struct {
-			word string
-			cnt  int
-		}
-
-		var result []string
 		text = strings.Replace(text, "\r", " ", -1)
 		text = strings.Replace(text, "\n", " ", -1)
 		listWords := strings.Split(text, " ")
@@ -26,6 +20,11 @@ func Top10(text string) []string {
 				}
 			}
 
+			type item struct {
+				word string
+				cnt  int
+			}
+
 			var topList []item
 			for k, v := range listWordsCount {
 				topList = append(topList, item{word: k, cnt: v})
@@ -37,8 +36,8 @@ func Top10(text string) []string {
 			sort.SliceStable(topList, func(i, j int) bool {
 				return topList[i].cnt > topList[j].cnt
 			})
-			//fmt.Println(topList)
 
+			var result []string
 			for k, v := range topList {
 				if k == 10 {
 					break
